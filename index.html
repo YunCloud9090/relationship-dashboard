@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="manifest" href="data:application/json,%7B%22name%22%3A%22%E4%BA%BA%E9%99%85%E4%BA%A4%E5%BE%80%E8%83%BD%E9%87%8F%E8%AF%84%E4%BC%B0%22%2C%22short_name%22%3A%22%E4%BA%BA%E9%99%85%E8%AF%84%E4%BC%B0%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%231a1a2e%22%2C%22theme_color%22%3A%22%231a1a2e%22%2C%22icons%22%3A%5B%5D%7D">
 <title>人际交往能量与信任评估 Dashboard</title>
 <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/echarts-wordcloud@2.1.0/dist/echarts-wordcloud.min.js"></script>
@@ -1033,9 +1034,97 @@ main { max-width:1400px; margin:0 auto; padding:24px 20px; }
 }
 .tm-sort-bar .tm-sort-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
 @media (max-width: 768px) {
+  /* --- Timeline --- */
   .tm-details { grid-template-columns: 1fr; }
   .tm-scores { flex-direction: column; gap: 8px; }
   .tm-actions { position: static; margin-top: 8px; text-align: right; }
+
+  /* --- Typography --- */
+  body { font-size: 14px; }
+  h2, .person-header h2, .chart-box h3 { font-size: 18px; }
+  .logo, nav .logo { font-size: 16px; }
+
+  /* --- Layout & Containers --- */
+  main { padding: 16px 12px; max-width: 100%; }
+  .chart-row { grid-template-columns: 1fr; gap: 12px; }
+  .chart-box { min-height: 280px; padding: 14px; }
+  .chart-box.full { min-height: 300px; }
+  .chart-inner, .chart-inner-container { height: 260px; }
+  .chart-inner.tall { height: 360px; }
+  .side-by-side { flex-direction: column; gap: 12px; }
+
+  /* --- Stat cards: 2 columns --- */
+  .stat-cards { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .stat-card { padding: 14px 16px; }
+  .stat-card .value { font-size: 28px; }
+  .stat-card .label { font-size: 12px; }
+  .overview-stat-row { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .ov-stat-card { padding: 14px 16px; }
+  .ov-stat-card .ov-stat-number { font-size: 24px; }
+
+  /* --- Nav --- */
+  nav { flex-wrap: wrap; height: auto; padding: 8px 12px; gap: 2px; }
+  nav .logo { margin-right: 12px; }
+  .nav-btn { font-size: 12px; padding: 6px 12px; }
+
+  /* --- FAB --- */
+  .fab-btn { width: 44px; height: 44px; font-size: 24px; bottom: 16px; right: 16px; }
+
+  /* --- Entry Drawer (already 100vw at 1000px breakpoint, ensure full width) --- */
+  .entry-drawer { width: 100vw; right: -100vw; }
+  .entry-drawer-body { padding: 14px; }
+  .entry-drawer-header { padding: 12px 16px; }
+  .entry-drawer-header h3 { font-size: 15px; }
+
+  /* --- Person Management --- */
+  .person-mgmt { padding: 14px; }
+  .person-mgmt-add { flex-direction: column; gap: 6px; }
+  .person-list { flex-direction: column; gap: 6px; }
+  .person-chip { width: 100%; }
+
+  /* --- Circle Cards --- */
+  .circle-card-group { gap: 4px; flex-wrap: wrap; }
+  .circle-card { min-width: 58px; padding: 8px 4px; font-size: 11px; }
+
+  /* --- Image Thumbnails --- */
+  .img-thumb { width: 64px; height: 64px; }
+  .img-thumb-grid { gap: 6px; }
+
+  /* --- Graveyard --- */
+  .graveyard-grid { grid-template-columns: 1fr; gap: 10px; }
+  .graveyard-card { padding: 14px; }
+
+  /* --- Score dims --- */
+  .score-dims { flex-direction: column; gap: 10px; }
+  .score-dim { width: 100%; }
+
+  /* --- Brief (月/周 stats grid) --- */
+  [style*="grid-template-columns:1fr 1fr"] { grid-template-columns: 1fr !important; }
+
+  /* --- Tables: smaller font, allow horizontal scroll --- */
+  .data-table { font-size: 12px; }
+  .data-table th, .data-table td { padding: 6px 8px; }
+
+  /* --- Person header --- */
+  .person-header { gap: 12px; }
+  .person-avatar { width: 60px; height: 60px; font-size: 22px; }
+  .big-score { font-size: 28px; }
+
+  /* --- Form rows --- */
+  .form-row { grid-template-columns: 1fr; gap: 8px; }
+  .slider-row { flex-wrap: wrap; }
+
+  /* --- Record management --- */
+  .record-mgmt-header { flex-wrap: wrap; gap: 8px; }
+
+  /* --- Data mgmt bar --- */
+  .data-mgmt-bar { flex-wrap: wrap; gap: 8px; }
+
+  /* --- Circle timeline --- */
+  .circle-timeline { padding: 12px; }
+
+  /* --- Footer --- */
+  footer { padding: 20px 14px 28px; font-size: 11px; }
 }
 
 </style>
@@ -4949,5 +5038,14 @@ window.addEventListener('resize', () => {
 本网站的设立旨在借助数据分析 &nbsp; 协助厘清人际交往中的模糊边界 &nbsp; 其功能定位不涉及任何道德或情感层面的约束<br>
 请勿盗用或用于商业用途。
 </footer>
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js').then(function(reg) {
+    console.log('[SW] Registered, scope:', reg.scope);
+  }).catch(function(err) {
+    console.warn('[SW] Registration failed:', err);
+  });
+}
+</script>
 </body>
 </html>
